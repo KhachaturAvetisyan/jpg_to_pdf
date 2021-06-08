@@ -1,20 +1,19 @@
-import img2pdf
 import glob
+import os
+from PIL import Image
 
-# global im1
-#
-# image_list = []
+# convert all images in folder ./photos to pdf
+image_list = []
+images = glob.glob('./photos/*.jpg')
 
-file = open("./photos/test.pdf", "wb")
-file.write((img2pdf.convert(glob.glob('./photos/*.jpg'))))
-file.close()
+for i in images:
+    image1 = Image.open(i)
+    im1 = image1.convert('RGB')
+    image_list.append(im1)
+image = image_list.pop(0)
+image.save('./photos/test.pdf', save_all=True, append_images=image_list)
 
-# for filename in glob.glob('./photos/*.jpg'):
-#     image1 = Image.open(filename)
-#     im1 = image1.convert('RGB')
-#     image_list.append(im1)
-# im1.save('./photos/test.pdf', save_all=True, append_images=image_list)
-
-# files = glob.glob('./photos/*')
-# for f in files:
-# os.remove(f)
+# delete all jpg file in folder ./photos
+files = glob.glob('./photos/*.jpg')
+for f in files:
+    os.remove(f)
